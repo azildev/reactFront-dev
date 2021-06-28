@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,64 +11,28 @@ import logo from './logo.svg';
 import './App.css';
 
 import HomePage from './pages/home/HomePage';
+import Login from './pages/auth/Login';
 function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-          <Route component={NoMatch}/>
+             <Public>
+               <Route exact path="/" component={HomePage}/>
+               <Route path="/login" component={Login}/>
+             </Public >
+             <Main>
+               <Route path="/dash" component={Dashboard}/>
+             </Main>
         </Switch>
+        
       </div>
     </Router>
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
+function Dashboard() {
+
 }
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
-
-function NoMatch() {
-  let location = useLocation();
-
-  return (
-    <div>
-      <h3>
-        No match for <code>{location.pathname}</code>
-      </h3>
-    </div>
-  );
-}
 export default App;
